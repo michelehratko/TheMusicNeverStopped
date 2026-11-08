@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- Studio project website!!! -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="The Music Never Stopped website" />
+    <meta name="robots" content="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Music Never Stopped</title>
+    <link rel="icon" type="image/x-icon" href="images/Home/Favicon_Ellipse.webp" />
+    <link rel="stylesheet" type="text/css" href="style.css" /> 
+<!-- font link-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Besley:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+  window.dataLayer = window.dataLayer || [];   
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1TT8N3V7EK');
+</script>
+</head> 
+<body>
+
+<header class="nav-bar">
+  <a class="site-title" href="index.html">The Music Never Stopped</a>
+
+  <nav class="top-links">
+    <a href="#index.html">Wall</a>
+    <a href="about.html">About</a>
+    <a href="generative.html">Generative Tool</a>
+  </nav>
+
+</header>
+
+<nav id="side-nav" class="side-nav is-open" aria-label="Main navigation">
+  <button id="nav-toggle" class="nav-toggle"
+          type="button" aria-label="Open menu" aria-controls="side-nav" aria-expanded="true">
+  </button>
+  <div id="side-nav-content">
+    <button id="nav-close" type="button" aria-label="Close menu">&times;</button>
+    <p>The Music Never Stopped is An interactive catalog of San Francisco’s open music venues. Explore various map views to compare them, learn about them, and find your next night out. </p>
+    <h1>Views</h1>
+    <ul>
+      <li><a href="#wall" id="default-view">Default</a></li>
+      <li><a href="#wall" id="timeline-view">Timeline</a></li>
+      <li><a href="#wall" id="capacity-view">Capacity</a></li>
+      <li><a href="#spotlights">Spotlights</a></li>
+      <li><a href="#map">Map</a></li>
+    </ul>
+    <h1>Filters</h1>
+    <div id="venue-filters">
+      <ul>
+        <li><details><summary>Venue Type</summary><ul data-filter-options="type"></ul></details></li>
+        <li><details><summary>Owner</summary><ul data-filter-options="independent"></ul></details></li>
+        <li><details><summary>Genre</summary><ul data-filter-options="genres"></ul></details></li>
+        <li><details><summary>Historic</summary><ul data-filter-options="historic"></ul></details></li>
+        <li><details><summary>Neighborhood</summary><ul data-filter-options="neighborhood"></ul></details></li>
+      </ul>
+      <button id="clear-filters" type="button">Clear filters</button>
+      <p id="filter-count" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</nav>
+
+<!-- </main> -->
+  <main id="wall" class="poster-wall">
+    <div id="card-container" class="card-container"></div>
+  </main>
+
+<dialog id="venue-popup" class="venue-popup" aria-labelledby="popup-title">
+  <button id="popup-close" class="popup-close" type="button" aria-label="Close venue details">
+    <span aria-hidden="true">&lsaquo;</span>
+  </button>
+  <div class="popup-layout">
+    <div class="popup-image-frame">
+      <img id="popup-image" class="popup-image" alt="" />
+    </div>
+    <section class="popup-details">
+      <h2 id="popup-title"></h2>
+      <p id="popup-description"></p>
+      <h3>Data</h3>
+      <dl id="popup-data"></dl>
+    </section>
+  </div>
+</dialog>
+
+<script src="script.js"></script>
+
+</body>
+</html>
