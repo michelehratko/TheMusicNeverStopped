@@ -1,5 +1,49 @@
+/* Set to none to hide the 12-column layout grid. */
+:root {
+  --layout-grid-display: block;
+}
+
+@font-face {
+  font-family: "ABC ROM";
+  src: url("fonts/ROM/ABC%20ROM/ABCROMTrial-Regular.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("fonts/Geist%20Mono/GeistMono-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 body {
   margin: 0;
+  font-family: "ABC ROM", Arial, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+body::after {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: var(--layout-grid-display);
+  pointer-events: none;
+  content: "";
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 190, 190, 0.35) 0 calc((100vw - 110px) / 12),
+    transparent calc((100vw - 110px) / 12) calc((100vw + 10px) / 12)
+  );
+  background-repeat: no-repeat;
 }
 
 /* full screen, white background */
@@ -14,6 +58,32 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.map-canvas {
+  display: none;
+}
+
+.poster-wall.map-view .card-container {
+  display: none;
+}
+
+.poster-wall.map-view {
+  min-height: calc(100vh - 64px);
+}
+
+.poster-wall.map-view .map-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.poster-wall.map-view .venue-card {
+  position: relative;
+  inset: auto;
+  width: clamp(22px, 3vw, 36px);
 }
 
 /* each postcard absolutely positioned so they all move independently */
@@ -93,6 +163,24 @@ body {
   transition: transform 250ms ease;
 }
 
+.nav-bar,
+.side-nav {
+  font-family: "Geist Mono", monospace;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.side-nav h1 {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.side-nav .nav-description {
+  text-transform: none;
+  font-size: 15px;
+}
+
 #side-nav-content {
   padding-left: 20px;
   padding-right: 20px;
@@ -126,7 +214,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   color: black;
-  font-weight: bold;
+  font-weight: 400;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -226,7 +314,6 @@ body {
 
 .popup-details {
   overflow-y: auto;
-  font-family: Arial, sans-serif;
 }
 
 .popup-details h2 {
@@ -302,6 +389,147 @@ body {
   }
 }
 
+/* ABOUT PAGE */
+
+.about-page {
+  display: grid;
+  padding-bottom: 300px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 10px;
+}
+
+.lyrics-container {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 14% 17% 22% 15% 32%;
+  column-gap: 10px;
+  height: clamp(340px, 50vw, 400px);
+  font-family: "Geist Mono", monospace;
+  font-size: 18px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #ff573d;
+}
+
+.lyrics-container p {
+  margin: 0;
+}
+
+.lyrics-container .lyric-one {
+  grid-column: 5 / -1;
+  grid-row: 2;
+}
+
+.lyrics-container .lyric-two {
+  grid-column: 4 / -1;
+  grid-row: 3;
+}
+
+.lyrics-container .lyric-three {
+  grid-column: 6 / -1;
+  grid-row: 4;
+}
+
+.lyrics-container .lyrics-credit {
+  grid-column: 8 / -1;
+  grid-row: 5;
+  color: #b7aaaa;
+}
+
+.about-page > p,
+.about-page > h1,
+.about-page > h2 {
+  grid-column: 4 / 10;
+}
+
+.about-page > .about-image {
+  grid-column: 3 / 11;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 18px;
+}
+
+.about-page .about-image-grid {
+  grid-column: 2 / 12;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.about-page .about-image-grid img {
+  display: block;
+  flex: 0 0 auto;
+  width: auto;
+  height: clamp(60px, calc(19.56vw - 5.1px), 380px);
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.about-page .buttons {
+  grid-column: 8 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 50px;
+  padding: 0 24px 0 30px;
+  border: 1px solid #111;
+  background: #ff573d;
+  color: #111;
+  font-family: "Geist Mono", monospace;
+  font-size: 18px;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.about-page .buttons:hover {
+  background: #ff684f;
+}
+
+.about-page .buttons:not(.buttons-white) {
+  margin-bottom: 100px;
+}
+
+.about-page .buttons-white,
+.about-page .buttons-white:hover {
+  background: #fff;
+}
+
+.about-page .buttons:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
+.about-page .button-arrow {
+  font-size: 1.5em;
+}
+
+@media (max-width: 600px) {
+  .lyrics-container {
+    height: 340px;
+    font-size: 12px;
+  }
+
+  .lyrics-container .lyrics-credit {
+    left: 42%;
+    max-width: 56%;
+  }
+
+  .about-page .buttons {
+    grid-column: 2 / 12;
+    min-height: 56px;
+    padding-inline: 18px;
+    font-size: 18px;
+  }
+}
+
 /* VIEW FILTERS */
 
 /* TIMELINE */ 
@@ -318,17 +546,193 @@ body {
   position: relative;
   left: auto;
   top: auto;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  aspect-ratio: auto;
+  overflow: visible;
+  background: transparent;
+  color: #111;
+  box-shadow: none;
 }
 
-/* Keep capacity cards within 400 × 600px, including on hover. */
+.poster-wall.timeline-view .venue-card-image-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: #ccc;
+}
+
+.poster-wall.timeline-view .venue-card-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #ccc;
+}
+
+.poster-wall.timeline-view .venue-card-year {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.poster-wall.timeline-view .venue-card:hover,
+.poster-wall.timeline-view .venue-card:focus-visible {
+  transform: none;
+  box-shadow: none;
+}
+
+.poster-wall.list-view .card-container {
+  position: relative;
+  box-sizing: border-box;
+  width: calc(100vw - (100vw + 10px) / 6);
+  margin-inline: calc((100vw + 10px) / 12);
+  padding: 24px 0 48px;
+  pointer-events: auto;
+}
+
+.venue-list {
+  display: block;
+  width: 100%;
+  color: #111;
+  font-family: "Geist Mono", monospace;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.venue-list thead,
+.venue-list tbody {
+  display: block;
+}
+
+.venue-list tr {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  column-gap: 10px;
+  border-bottom: 1px solid #111;
+}
+
+.venue-list th,
+.venue-list td {
+  padding: 10px 10px 10px 0;
+  min-width: 0;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+
+.venue-list th {
+  font-weight: 400;
+  padding-bottom: 14px;
+}
+
+.venue-list th:nth-child(1),
+.venue-list td:nth-child(1) { grid-column: 1 / span 4; }
+.venue-list th:nth-child(2),
+.venue-list td:nth-child(2) { grid-column: 5 / span 2; }
+.venue-list th:nth-child(3),
+.venue-list td:nth-child(3) { grid-column: 7 / span 2; }
+.venue-list th:nth-child(4),
+.venue-list td:nth-child(4) { grid-column: 9; }
+.venue-list th:nth-child(5),
+.venue-list td:nth-child(5) { grid-column: 10; }
+
+.venue-list tbody tr {
+  cursor: pointer;
+}
+
+.poster-wall.list-view .venue-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  aspect-ratio: auto;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  box-shadow: none;
+  text-align: left;
+}
+
+.poster-wall.list-view .venue-card:hover,
+.poster-wall.list-view .venue-card:focus-visible {
+  transform: none;
+  box-shadow: none;
+}
+
+.venue-list tr:hover .venue-card-title,
+.venue-list tr:focus-within .venue-card-title {
+  font-weight: 700;
+}
+
+.poster-wall.list-view .venue-card-title {
+  display: block;
+  padding-right: 180px;
+}
+
+.list-preview {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: calc(100% - 170px);
+  display: block;
+  width: 150px;
+  aspect-ratio: 2 / 3;
+  background: #999;
+  box-shadow: 0 0 0 4px #fff;
+  visibility: hidden;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.venue-list tr:hover .list-preview,
+.venue-list tr:focus-within .list-preview {
+  visibility: visible;
+}
+
+.poster-wall.list-view .list-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.poster-wall.list-view .venue-card:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .poster-wall.list-view .card-container {
+    width: auto;
+    margin-inline: 56px 16px;
+    overflow-x: auto;
+    padding-top: 96px;
+  }
+
+  .venue-list {
+    min-width: 700px;
+    font-size: 14px;
+  }
+}
+
+/* Keep capacity cards within 465px width and preserve the 2:3 aspect ratio. */
 .poster-wall.capacity-view .card-container {
   isolation: isolate;
 }
 
 .poster-wall.capacity-view .venue-card {
-  max-width: 400px;
+  max-width: 465px;
+  aspect-ratio: 2 / 3;
   transform: none;
 }
+
 
 #side-nav-content {
   box-sizing: border-box;
@@ -353,4 +757,257 @@ body {
 .empty-state {
   padding: 24px;
   pointer-events: auto;
+}
+
+/* SPOTLIGHTS: compact rows aligned to the 12-column grid. */
+.poster-wall.spotlights-view .card-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px 10px;
+  padding: 12px 0 20px;
+}
+
+.spotlight {
+  min-width: 0;
+  color: #111;
+  pointer-events: auto;
+}
+
+.spotlight:nth-child(4n + 1) { grid-column: 2 / span 2; }
+.spotlight:nth-child(4n + 2) { grid-column: 5 / span 2; }
+.spotlight:nth-child(4n + 3) { grid-column: 8 / span 2; }
+.spotlight:nth-child(4n + 4) { grid-column: 11 / span 2; }
+
+.spotlight-status {
+  margin: 0 0 6px;
+  font-family: "Geist Mono", monospace;
+  font-size: 13px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.poster-wall.spotlights-view .venue-card {
+  position: relative;
+  inset: auto;
+  box-shadow: none;
+}
+
+.spotlight-description {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.15;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 900px) {
+  .poster-wall.spotlights-view .card-container {
+    row-gap: 20px;
+  }
+
+  .spotlight:nth-child(3n + 1) { grid-column: 2 / span 3; }
+  .spotlight:nth-child(3n + 2) { grid-column: 5 / span 3; }
+  .spotlight:nth-child(3n + 3) { grid-column: 8 / span 3; }
+}
+
+@media (max-width: 540px) {
+  .poster-wall.spotlights-view .card-container {
+    row-gap: 20px;
+  }
+
+  .spotlight:nth-child(2n + 1) { grid-column: 3 / span 4; }
+  .spotlight:nth-child(2n) { grid-column: 8 / span 4; }
+}
+
+/* Sidebar menu: ruled sections and typographic selection controls. */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("fonts/Geist%20Mono/GeistMono-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+.side-nav {
+  width: 320px;
+  background: #fff;
+  border-right: 1px solid #111;
+  color: #111;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.nav-toggle {
+  background: #fff;
+}
+
+.nav-toggle::before {
+  content: "+";
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  font: 24px "Geist Mono", monospace;
+}
+
+#side-nav-content {
+  padding: 0;
+}
+
+.sidebar-intro {
+  background: #ff573d;
+  border-bottom: 1px solid #111;
+}
+
+.sidebar-back-row {
+  height: 64px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.12);
+}
+
+#nav-close {
+  position: relative;
+  inset: auto;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+#nav-close span {
+  width: 20px;
+  height: 20px;
+  border-left: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+}
+
+#nav-close:focus-visible {
+  outline: 2px solid #111;
+  outline-offset: -4px;
+}
+
+.sidebar-menu {
+  padding: 26px 24px 32px;
+}
+
+.side-nav h1 {
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #111;
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.side-nav .view-options {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.view-options a {
+  display: flex;
+  gap: 12px;
+  padding-block: 2px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.view-options a::before {
+  content: "+";
+  flex: 0 0 14px;
+}
+
+.view-options a[aria-current="true"]::before {
+  content: "−";
+}
+
+#venue-filters ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#venue-filters li {
+  margin: 0;
+}
+
+#venue-filters summary {
+  display: block;
+  padding: 12px 0 10px;
+  border-bottom: 1px solid #111;
+  list-style: none;
+}
+
+#venue-filters summary::-webkit-details-marker {
+  display: none;
+}
+
+#venue-filters details > ul {
+  padding: 18px 0 12px;
+}
+
+#venue-filters label {
+  position: relative;
+  display: block;
+  padding-block: 3px;
+}
+
+#venue-filters input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.filter-option-text {
+  display: flex;
+  gap: 12px;
+}
+
+.filter-option-text::before {
+  content: "+";
+  flex: 0 0 14px;
+}
+
+#venue-filters input:checked + .filter-option-text::before {
+  content: "−";
+}
+
+.view-options a:focus-visible,
+#venue-filters summary:focus-visible,
+#venue-filters input:focus-visible + .filter-option-text {
+  outline: 2px solid #111;
+  outline-offset: 3px;
+}
+
+#clear-filters {
+  margin-top: 24px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#filter-count {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.side-nav .nav-description {
+  margin: 0;
+  padding: 10px 24px 26px;
+  font-size: 15px;
+  line-height: 1.3;
+  text-transform: none;
 }
